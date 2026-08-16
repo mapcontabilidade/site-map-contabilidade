@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Área do Cliente | MAP Contabilidade</title>
+<link rel="manifest" href="/portal/manifest.json">
+<meta name="theme-color" content="#1A1A1A">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Área do Cliente">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:#C0272D; --red-dark:#9B1F24; --red-light:#E8474D; --red-pale:#FDEAEA;
+  --charcoal:#1A1A1A; --charcoal-mid:#2C2C2C;
+  --text-muted:#8A8A8A; --border:rgba(255,255,255,0.1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:linear-gradient(160deg,#1A1A1A 0%,#2C2C2C 55%,#3a1416 160%);
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.card{
+  max-width:420px;
+  width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:40px 32px;
+  text-align:center;
+  backdrop-filter:blur(6px);
+}
+.logo{width:64px;height:64px;margin:0 auto 20px;display:block}
+h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;margin-bottom:8px}
+.sub{font-size:13px;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:28px}
+p{font-size:15px;line-height:1.6;color:rgba(255,255,255,.75);margin-bottom:28px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red-pale);color:var(--red-dark);
+  font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:8px 16px;border-radius:100px;margin-bottom:24px;
+}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red)}
+.btn{
+  display:inline-block;width:100%;
+  background:var(--red);color:#fff;
+  padding:14px 20px;border-radius:10px;
+  font-weight:600;font-size:14px;text-decoration:none;
+  transition:background .2s;
+}
+.btn:hover{background:var(--red-dark)}
+.back{display:block;margin-top:20px;font-size:13px;color:var(--text-muted);text-decoration:none}
+.back:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <svg class="logo" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#E8474D"/>
+        <stop offset="55%" stop-color="#9B1F24"/>
+        <stop offset="100%" stop-color="#1A1A1A"/>
+      </linearGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#g1)"/>
+  </svg>
+
+  <div class="badge">Área exclusiva para clientes</div>
+  <h1>Área do Cliente</h1>
+  <div class="sub">MAP Contabilidade</div>
+  <p>Em breve você poderá acompanhar documentos, prazos fiscais e comunicados da MAP diretamente por aqui — de qualquer lugar, direto no seu celular.</p>
+  <a class="btn" href="http://bit.ly/mapwhatsapp" target="_blank" rel="noopener">Falar com a MAP no WhatsApp</a>
+  <a class="back" href="/">← Voltar para o site</a>
+</div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/portal/sw.js', { scope: '/portal/' }).catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
