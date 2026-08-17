@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Área do Cliente | MAP Contabilidade</title>
+<link rel="manifest" href="/portal/manifest.json">
+<meta name="theme-color" content="#1A1A1A">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Área do Cliente">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:#C0272D; --red-dark:#9B1F24; --red-light:#E8474D; --red-pale:#FDEAEA;
+  --charcoal:#1A1A1A; --charcoal-mid:#2C2C2C;
+  --text-muted:#8A8A8A; --border:rgba(255,255,255,0.1);
+  --green:#2E7D32; --green-pale:#E8F5E9;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:linear-gradient(160deg,#1A1A1A 0%,#2C2C2C 55%,#3a1416 160%);
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.card{
+  max-width:420px;
+  width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:40px 32px;
+  text-align:center;
+  backdrop-filter:blur(6px);
+}
+.logo{width:56px;height:56px;margin:0 auto 20px;display:block}
+h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;margin-bottom:8px}
+.sub{font-size:13px;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px}
+p{font-size:15px;line-height:1.6;color:rgba(255,255,255,.75);margin-bottom:24px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red-pale);color:var(--red-dark);
+  font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:8px 16px;border-radius:100px;margin-bottom:24px;
+}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red)}
+.btn{
+  display:inline-block;width:100%;
+  background:var(--red);color:#fff;border:none;cursor:pointer;
+  padding:14px 20px;border-radius:10px;
+  font-weight:600;font-size:14px;font-family:inherit;
+  transition:background .2s;
+}
+.btn:hover{background:var(--red-dark)}
+.btn:disabled{opacity:.6;cursor:default}
+.btn-ghost{
+  background:transparent;border:1px solid var(--border);color:#fff;
+  margin-top:10px;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.06)}
+.back{display:block;margin-top:20px;font-size:13px;color:var(--text-muted);text-decoration:none}
+.back:hover{color:#fff}
+
+.field{text-align:left;margin-bottom:14px}
+.field label{display:block;font-size:11.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.field input{
+  width:100%;padding:12px 14px;border-radius:8px;
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:#fff;font-family:inherit;font-size:14px;
+}
+.field input:focus{outline:none;border-color:var(--red)}
+.field input::placeholder{color:rgba(255,255,255,.3)}
+
+.error-msg{
+  display:none;background:rgba(192,39,45,.15);border:1px solid rgba(192,39,45,.4);
+  color:#ff8a8f;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;text-align:left;
+}
+.error-msg.show{display:block}
+
+.hidden{display:none}
+
+.welcome-avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--red);display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+  margin:0 auto 16px;
+}
+.welcome-email{font-size:13px;color:var(--text-muted);margin-bottom:24px;word-break:break-all}
+.soon-box{
+  background:rgba(255,255,255,.03);border:1px dashed var(--border);
+  border-radius:12px;padding:18px;margin-bottom:24px;text-align:left;
+}
+.soon-box .soon-title{font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:10px;font-weight:700}
+.soon-item{display:flex;align-items:center;gap:10px;font-size:13.5px;color:rgba(255,255,255,.8);padding:6px 0}
+.soon-item::before{content:'○';color:var(--text-muted)}
+
+.spinner{
+  display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- TELA DE LOGIN -->
+<div class="card" id="view-login">
+  <svg class="logo" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#E8474D"/>
+        <stop offset="55%" stop-color="#9B1F24"/>
+        <stop offset="100%" stop-color="#1A1A1A"/>
+      </linearGradient>
+    </defs>
+    <circle cx="150" cy="150" r="146" fill="url(#g1)"/>
+  </svg>
+
+  <div class="badge">Área exclusiva para clientes</div>
+  <h1>Área do Cliente</h1>
+  <div class="sub">MAP Contabilidade</div>
+
+  <div class="error-msg" id="login-error"></div>
+
+  <form id="login-form">
+    <div class="field">
+      <label for="login-email">E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@email.com.br" autocomplete="username" required>
+    </div>
+    <div class="field">
+      <label for="login-password">Senha</label>
+      <input type="password" id="login-password" placeholder="Sua senha" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn" id="login-btn">Entrar</button>
+  </form>
+
+  <a class="back" href="/">← Voltar para o site</a>
+</div>
+
+<!-- TELA LOGADA -->
+<div class="card hidden" id="view-dashboard">
+  <div class="welcome-avatar" id="dash-avatar">?</div>
+  <h1>Olá!</h1>
+  <div class="welcome-email" id="dash-email"></div>
+
+  <div class="soon-box">
+    <div class="soon-title">Em breve por aqui</div>
+    <div class="soon-item">Seus documentos e comprovantes</div>
+    <div class="soon-item">Prazos e obrigações fiscais</div>
+    <div class="soon-item">Comunicados da MAP</div>
+  </div>
+
+  <button class="btn btn-ghost" id="logout-btn">Sair</button>
+  <a class="back" href="/">← Voltar para o site</a>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBZOnEE1mu93LEUQf1cYfKjEKurjJ_1hNU",
+  authDomain: "map-contabilidade-portal.firebaseapp.com",
+  projectId: "map-contabilidade-portal",
+  storageBucket: "map-contabilidade-portal.firebasestorage.app",
+  messagingSenderId: "579266492297",
+  appId: "1:579266492297:web:c3205607877052a1e29358"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const viewLogin = document.getElementById('view-login');
+const viewDash = document.getElementById('view-dashboard');
+const loginForm = document.getElementById('login-form');
+const loginBtn = document.getElementById('login-btn');
+const errorEl = document.getElementById('login-error');
+const dashEmail = document.getElementById('dash-email');
+const dashAvatar = document.getElementById('dash-avatar');
+const logoutBtn = document.getElementById('logout-btn');
+
+function showError(msg) {
+  errorEl.textContent = msg;
+  errorEl.classList.add('show');
+}
+function clearError() {
+  errorEl.classList.remove('show');
+  errorEl.textContent = '';
+}
+
+function traduzErro(code) {
+  const mapa = {
+    'auth/invalid-email': 'E-mail inválido.',
+    'auth/user-disabled': 'Este acesso foi desativado. Fale com a MAP.',
+    'auth/user-not-found': 'E-mail ou senha incorretos.',
+    'auth/wrong-password': 'E-mail ou senha incorretos.',
+    'auth/invalid-credential': 'E-mail ou senha incorretos.',
+    'auth/too-many-requests': 'Muitas tentativas. Aguarde um pouco e tente de novo.',
+    'auth/network-request-failed': 'Falha de conexão. Verifique sua internet.',
+  };
+  return mapa[code] || 'Não foi possível entrar. Tente novamente ou fale com a MAP.';
+}
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clearError();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+
+  loginBtn.disabled = true;
+  loginBtn.innerHTML = '<span class="spinner"></span>Entrando...';
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    // onAuthStateChanged cuida de trocar a tela
+  } catch (err) {
+    showError(traduzErro(err.code));
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Entrar';
+  }
+});
+
+logoutBtn.addEventListener('click', async () => {
+  await signOut(auth);
+});
+
+onAuthStateChanged(auth, (user) => {
+  loginBtn.disabled = false;
+  loginBtn.textContent = 'Entrar';
+  if (user) {
+    viewLogin.classList.add('hidden');
+    viewDash.classList.remove('hidden');
+    dashEmail.textContent = user.email;
+    dashAvatar.textContent = (user.email || '?').charAt(0).toUpperCase();
+  } else {
+    viewDash.classList.add('hidden');
+    viewLogin.classList.remove('hidden');
+  }
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/portal/sw.js', { scope: '/portal/' }).catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
