@@ -2,6 +2,20 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<style>html.gate body{visibility:hidden}</style>
+<script>document.documentElement.classList.add('gate')</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+const app = initializeApp({apiKey:"AIzaSyBZOnEE1mu93LEUQf1cYfKjEKurjJ_1hNU",authDomain:"map-contabilidade-portal.firebaseapp.com",projectId:"map-contabilidade-portal",appId:"1:579266492297:web:c3205607877052a1e29358"});
+onAuthStateChanged(getAuth(app), u => {
+  if (!u) { location.replace('/portal/'); return; }
+  document.documentElement.classList.remove('gate');
+  const b=document.createElement('a'); b.href='/portal/'; b.textContent='← Voltar ao portal';
+  b.style.cssText='position:fixed;top:10px;left:10px;z-index:99999;background:#1A1A1A;color:#fff;font:600 13px Manrope,Arial,sans-serif;padding:8px 14px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.25)';
+  document.body.appendChild(b);
+});
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Simule o impacto da Reforma Tributária (IBS e CBS) nos impostos da sua empresa. Calculadora da MAP Contabilidade.">
 <title>Calculadora da Reforma Tributária</title>
