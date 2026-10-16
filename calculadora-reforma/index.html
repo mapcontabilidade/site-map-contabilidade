@@ -2,6 +2,43 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<style>
+html.locked body>*:not(#mapgate){display:none!important}
+#mapgate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:#1B1717;font-family:Manrope,Arial,sans-serif}
+#mapgate .c{width:100%;max-width:380px;background:#252020;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:34px 28px;text-align:center;color:#fff}
+#mapgate h1{font:700 22px Sora,Arial,sans-serif;margin:14px 0 6px}
+#mapgate p{font-size:13.5px;color:#b9b3b3;margin:0 0 20px}
+#mapgate input{width:100%;box-sizing:border-box;padding:13px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:#1B1717;color:#fff;font-size:15px}
+#mapgate input:focus{outline:2px solid #E8474D;border-color:transparent}
+#mapgate button{width:100%;margin-top:12px;padding:13px;border:0;border-radius:10px;background:#C0272D;color:#fff;font-weight:700;letter-spacing:.5px;cursor:pointer;font-size:14px}
+#mapgate button:hover{background:#9B1F24}
+#mapgate .e{min-height:18px;margin-top:10px;font-size:13px;color:#ff8a8f}
+#mapgate small{display:block;margin-top:16px;font-size:12px;color:#8f8888}
+</style>
+<script>
+(function(){
+  var K='map_consulta_auth',H='1691b44db75a15481ce50dabd52c9aaf2b75976dca282441e97f87bfc1f5fc10',ok=false;
+  try{ok=sessionStorage.getItem(K)==='ok'}catch(e){}
+  if(ok)return;
+  document.documentElement.classList.add('locked');
+  document.addEventListener('DOMContentLoaded',function(){
+    var g=document.createElement('div');g.id='mapgate';
+    g.innerHTML='<div class="c"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8474D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><h1>Área do Cliente</h1><p>Calculadora da Reforma Tributária — MAP Contabilidade</p><input type="password" id="mg-pw" placeholder="Digite a senha de acesso" autocomplete="current-password" aria-label="Senha de acesso"><div class="e" id="mg-err" role="alert"></div><button type="button" id="mg-go">ENTRAR</button><small>Acesso fornecido pela sua contadora.<br>Em caso de dúvida, entre em contato com a MAP.</small></div>';
+    document.body.insertBefore(g,document.body.firstChild);
+    var i=g.querySelector('#mg-pw'),e=g.querySelector('#mg-err');
+    async function go(){
+      if(!i.value)return;
+      var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(i.value));
+      var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
+      if(h===H){try{sessionStorage.setItem(K,'ok')}catch(x){}document.documentElement.classList.remove('locked');g.remove();}
+      else{e.textContent='Senha incorreta. Tente novamente.';i.value='';i.focus();}
+    }
+    g.querySelector('#mg-go').addEventListener('click',go);
+    i.addEventListener('keydown',function(ev){if(ev.key==='Enter')go()});
+    i.focus();
+  });
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Simule o impacto da Reforma Tributária (IBS e CBS) nos impostos da sua empresa. Calculadora da MAP Contabilidade.">
 <title>Calculadora da Reforma Tributária</title>
